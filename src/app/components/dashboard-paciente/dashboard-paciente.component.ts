@@ -82,7 +82,8 @@ export class DashboardPacienteComponent implements OnInit {
    */
   actualizarPrecio() {
     const descuento = this.obtenerDescuento(this.obraSocialSeleccionada?.nombre);
-    this.precioConDescuento = this.precioBase * (1 - descuento);
+    const precio = this.precioBase * (1 - descuento);
+    this.precioConDescuento = Number(precio.toFixed(2));
   }
 
   /**
