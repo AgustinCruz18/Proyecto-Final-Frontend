@@ -198,17 +198,18 @@ export class DashboardPacienteComponent implements OnInit {
     }).subscribe({
       next: (res) => {
         if (res.init_point) {
+          // AÑADIR la info de paciente y obra social antes de guardar en localStorage:
+          this.turnoParaPagar.paciente = { _id: this.ficha.userId };
+          this.turnoParaPagar.obraSocial = obraSocial;
+
           localStorage.setItem('turnoAPagar', JSON.stringify(this.turnoParaPagar));
           window.location.href = res.init_point;
         } else {
           this.reservarTurnoDirecto();
         }
-      },
-      error: (err) => {
-        console.error(err);
-        this.mensaje = 'Error al generar link de pago.';
       }
     });
+
   }
 
   reservarTurnoDirecto() {

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pago-estatus',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './pago-estatus.component.html',
   styleUrl: './pago-estatus.component.css'
@@ -12,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PagoEstatusComponent implements OnInit {
   mensaje = 'Procesando pago...';
   estado: 'exitoso' | 'fallido' | 'pendiente' | 'otro' = 'otro';
+  enlaceGoogleCalendar: string | null = null; // ✅ AHORA SÍ DECLARADO
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -31,18 +33,19 @@ export class PagoEstatusComponent implements OnInit {
         this.estado = 'exitoso';
         this.mensaje = '¡Pago aprobado! Reservando turno...';
 
-        this.http.put('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar/' + turno._id, {
+        this.http.put<any>('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar/' + turno._id, {
           pacienteId: turno.paciente._id,
           obraSocialElegida: turno.obraSocial
         }).subscribe({
-          next: () => {
+          next: (res) => {
             this.mensaje = '¡Pago aprobado y turno reservado con éxito!';
+            this.enlaceGoogleCalendar = res.enlaceGoogleCalendar ?? null; // ✅ GUARDAMOS ENLACE
+
             localStorage.removeItem('turnoAPagar');
 
-            // Redirige al dashboard del paciente
             setTimeout(() => {
               window.location.href = `/paciente/${turno.paciente._id}`;
-            }, 2000);
+            }, 3000);
           },
           error: () => {
             this.mensaje = 'Pago aprobado, pero hubo un error al reservar el turno.';
@@ -59,5 +62,4 @@ export class PagoEstatusComponent implements OnInit {
       }
     });
   }
-
 }
