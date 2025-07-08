@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PagoEstatusComponent implements OnInit {
   mensaje = 'Procesando pago...';
   estado: 'exitoso' | 'fallido' | 'pendiente' | 'otro' = 'otro';
-  enlaceGoogleCalendar: string | null = null; // ✅ AHORA SÍ DECLARADO
+  enlaceGoogleCalendar: string | null = null;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -33,14 +33,20 @@ export class PagoEstatusComponent implements OnInit {
         this.estado = 'exitoso';
         this.mensaje = '¡Pago aprobado! Reservando turno...';
 
-        this.http.put<any>('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar/' + turno._id, {
-          pacienteId: turno.paciente._id,
-          obraSocialElegida: turno.obraSocial
-        }).subscribe({
+        const token = localStorage.getItem('token');
+        const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+
+        this.http.put<any>(
+          `https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar/${turno._id}`,
+          {
+            pacienteId: turno.paciente._id,
+            obraSocialElegida: turno.obraSocial
+          },
+          headers
+        ).subscribe({
           next: (res) => {
             this.mensaje = '¡Pago aprobado y turno reservado con éxito!';
-            this.enlaceGoogleCalendar = res.enlaceGoogleCalendar ?? null; // ✅ GUARDAMOS ENLACE
-
+            this.enlaceGoogleCalendar = res.enlaceGoogleCalendar ?? null;
             localStorage.removeItem('turnoAPagar');
 
             setTimeout(() => {
@@ -51,6 +57,7 @@ export class PagoEstatusComponent implements OnInit {
             this.mensaje = 'Pago aprobado, pero hubo un error al reservar el turno.';
           }
         });
+
       } else if (status === 'in_process' || status === 'pending') {
         this.estado = 'pendiente';
         this.mensaje = 'Tu pago está pendiente. Te avisaremos cuando se confirme.';
