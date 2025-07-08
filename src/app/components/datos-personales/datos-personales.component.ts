@@ -40,7 +40,7 @@ export class DatosPersonalesComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
 
-    this.http.get<any>(`http://localhost:5000/api/ficha/${this.userId}`).subscribe({
+    this.http.get<any>(`https://proyecto-final-backend-hlv5.onrender.com/api/ficha/${this.userId}`).subscribe({
       next: (data) => {
         if (data) {
           this.ficha = data;
@@ -109,16 +109,16 @@ export class DatosPersonalesComponent implements OnInit {
 
   guardar(): void {
     const anioActual = new Date().getFullYear();
-  const fechaNacimiento = new Date(this.ficha.fechaNacimiento);
+    const fechaNacimiento = new Date(this.ficha.fechaNacimiento);
 
-  if (fechaNacimiento.getFullYear() >= anioActual) {
-    this.fechaInvalida = true;
-    this.mensajeModal = 'La fecha de nacimiento debe ser anterior al año actual.';
-    this.mostrarModalConFocoSeguro();
-    return;
-  } else {
-    this.fechaInvalida = false;
-  }
+    if (fechaNacimiento.getFullYear() >= anioActual) {
+      this.fechaInvalida = true;
+      this.mensajeModal = 'La fecha de nacimiento debe ser anterior al año actual.';
+      this.mostrarModalConFocoSeguro();
+      return;
+    } else {
+      this.fechaInvalida = false;
+    }
     const fichaData = {
       userId: this.userId, // Usamos this.userId que ya viene de la ruta
       nombreCompleto: this.ficha.nombreCompleto,
@@ -145,7 +145,7 @@ export class DatosPersonalesComponent implements OnInit {
       });
     }
 
-    this.http.post('http://localhost:5000/api/ficha', fichaData).subscribe({
+    this.http.post('https://proyecto-final-backend-hlv5.onrender.com/api/ficha', fichaData).subscribe({
       next: () => {
         this.mensajeModal = this.esNuevaFicha
           ? 'Ficha guardada correctamente.'

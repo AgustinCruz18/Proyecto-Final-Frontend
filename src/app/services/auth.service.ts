@@ -6,7 +6,7 @@ export class AuthService {
   constructor(private router: Router) { }
 
   loginWithGoogle() {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = 'https://proyecto-final-backend-hlv5.onrender.com/api/auth/google';
   }
 
   getUserIdFromToken(): string | null {

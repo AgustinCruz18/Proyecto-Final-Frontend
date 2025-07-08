@@ -60,14 +60,14 @@ export class DashboardSecretariaComponent implements OnInit {
   }
 
   cargarFichas() {
-    this.http.get<any[]>('http://localhost:5000/api/ficha/secretaria/todas').subscribe({
+    this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/ficha/secretaria/todas').subscribe({
       next: (data) => (this.fichas = data),
       error: () => this.mostrarMensaje('Error al cargar las fichas.', 'error'),
     });
   }
 
   autorizar(fichaId: string) {
-    this.http.put(`http://localhost:5000/api/ficha/autorizar/${fichaId}`, {}).subscribe({
+    this.http.put(`https://proyecto-final-backend-hlv5.onrender.com/api/ficha/autorizar/${fichaId}`, {}).subscribe({
       next: () => {
         this.mostrarMensaje('Ficha autorizada correctamente.', 'success');
         this.cargarFichas();
@@ -78,7 +78,7 @@ export class DashboardSecretariaComponent implements OnInit {
   }
 
   desautorizar(fichaId: string) {
-    this.http.put(`http://localhost:5000/api/ficha/desautorizar/${fichaId}`, {}).subscribe({
+    this.http.put(`https://proyecto-final-backend-hlv5.onrender.com/api/ficha/desautorizar/${fichaId}`, {}).subscribe({
       next: () => {
         this.mostrarMensaje('Ficha desautorizada correctamente.', 'success');
         this.cargarFichas();
@@ -89,7 +89,7 @@ export class DashboardSecretariaComponent implements OnInit {
   }
 
   cargarEspecialidades() {
-    this.http.get<any[]>('http://localhost:5000/api/especialidades').subscribe({
+    this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/especialidades').subscribe({
       next: (data) => (this.especialidades = data),
       error: () =>
         this.mostrarMensaje('Error al cargar las especialidades.', 'error'),
@@ -115,7 +115,7 @@ export class DashboardSecretariaComponent implements OnInit {
   }
 
   cargarMedicos() {
-    this.http.get<any[]>('http://localhost:5000/api/medicos').subscribe({
+    this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/medicos').subscribe({
       next: (data) => (this.medicos = data),
       error: () =>
         this.mostrarMensaje('Error al cargar los médicos.', 'error'),

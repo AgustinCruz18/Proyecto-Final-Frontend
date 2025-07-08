@@ -23,7 +23,7 @@ export class DetallePacienteComponent {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
-    this.http.get<any>(`http://localhost:5000/api/ficha/${this.userId}`).subscribe({
+    this.http.get<any>(`https://proyecto-final-backend-hlv5.onrender.com/api/ficha/${this.userId}`).subscribe({
       next: (data) => {
         this.ficha = data;
       },
@@ -49,7 +49,7 @@ export class DetallePacienteComponent {
     });
   }*/
   cargarTurnosPaciente() {
-    this.http.get<any[]>(`http://localhost:5000/api/turnos/paciente/${this.userId}`).subscribe({
+    this.http.get<any[]>(`https://proyecto-final-backend-hlv5.onrender.com/api/turnos/paciente/${this.userId}`).subscribe({
       next: (data) => {
         this.turnos = data;
       },

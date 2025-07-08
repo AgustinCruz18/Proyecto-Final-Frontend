@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'; // Asegúrate de importar Observable
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'https://proyecto-final-backend-hlv5.onrender.com/api/auth';
 
   constructor(private http: HttpClient) { }
 

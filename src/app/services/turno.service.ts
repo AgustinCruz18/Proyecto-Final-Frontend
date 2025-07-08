@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TurnoService {
-  private apiUrl = 'http://localhost:5000/api/turnos';
+  private apiUrl = 'https://proyecto-final-backend-hlv5.onrender.com/api/turnos';
 
   constructor(private http: HttpClient) { }
 
@@ -13,7 +13,7 @@ export class TurnoService {
   }
 
   getTodos(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:5000/api/turnos');
+    return this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/turnos');
   }
 
   reservarTurno(turnoId: string, pacienteId: string, obraSocial: any): Observable<{

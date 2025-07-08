@@ -31,7 +31,7 @@ export class PagoEstatusComponent implements OnInit {
         this.estado = 'exitoso';
         this.mensaje = '¡Pago aprobado! Reservando turno...';
 
-        this.http.put('http://localhost:5000/api/turnos/reservar/' + turno._id, {
+        this.http.put('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar/' + turno._id, {
           pacienteId: turno.paciente._id,
           obraSocialElegida: turno.obraSocial
         }).subscribe({

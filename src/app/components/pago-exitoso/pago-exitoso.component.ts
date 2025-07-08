@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class PagoExitosoComponent implements OnInit {
   message = 'Procesando tu pago...';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -25,7 +25,7 @@ export class PagoExitosoComponent implements OnInit {
 
         const turno = JSON.parse(turnoString);
 
-        this.http.post('http://localhost:5000/api/turnos/reservar', {
+        this.http.post('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar', {
           turnoId: turno._id,
           pacienteId: turno.paciente?._id,
           obraSocial: turno.paciente?.obraSocial

@@ -23,7 +23,7 @@ export class RegistroComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   onSubmit() {
-    this.http.post('http://localhost:5000/api/auth/register', {
+    this.http.post('https://proyecto-final-backend-hlv5.onrender.com/api/auth/register', {
       nombre: this.nombre,
       email: this.email,
       password: this.password

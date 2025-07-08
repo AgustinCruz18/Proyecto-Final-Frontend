@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class MedicoService {
-  private apiUrl = 'http://localhost:5000/api/medicos';
+  private apiUrl = 'https://proyecto-final-backend-hlv5.onrender.com/api/medicos';
 
   constructor(private http: HttpClient) { }
 

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ReportesService {
-  private apiUrl = 'http://localhost:5000/api/reportes';
+  private apiUrl = 'https://proyecto-final-backend-hlv5.onrender.com/api/reportes';
 
   constructor(private http: HttpClient) { }
 
@@ -16,9 +16,9 @@ export class ReportesService {
   }
 
   obtenerTurnosPorMedico() {
-  const token = localStorage.getItem('token') || '';
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.get('http://localhost:5000/api/reportes/turnos-por-medico', { headers });
-}
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get('https://proyecto-final-backend-hlv5.onrender.com/api/reportes/turnos-por-medico', { headers });
+  }
 
 }

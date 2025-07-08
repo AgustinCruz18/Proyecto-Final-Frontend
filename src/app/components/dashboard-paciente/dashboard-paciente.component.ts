@@ -52,7 +52,7 @@ export class DashboardPacienteComponent implements OnInit {
 
   ngOnInit() {
     this.idUsuario = this.route.snapshot.paramMap.get('id') ?? '';
-    this.http.get<any>(`http://localhost:5000/api/ficha/${this.idUsuario}`).subscribe({
+    this.http.get<any>(`https://proyecto-final-backend-hlv5.onrender.com/api/ficha/${this.idUsuario}`).subscribe({
       next: (ficha) => {
         if (ficha) {
           this.ficha = ficha;
@@ -105,7 +105,7 @@ export class DashboardPacienteComponent implements OnInit {
    * Carga las especialidades médicas desde el backend.
    */
   cargarEspecialidades() {
-    this.http.get<any[]>('http://localhost:5000/api/especialidades').subscribe({
+    this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/especialidades').subscribe({
       next: data => this.especialidades = data,
       error: err => console.error('Error cargando especialidades', err)
     });
@@ -115,7 +115,7 @@ export class DashboardPacienteComponent implements OnInit {
    * Carga los médicos filtrados por la especialidad seleccionada.
    */
   cargarMedicos() {
-    this.http.get<any[]>('http://localhost:5000/api/medicos').subscribe({
+    this.http.get<any[]>('https://proyecto-final-backend-hlv5.onrender.com/api/medicos').subscribe({
       next: data => {
         this.medicos = data.filter(m => m.especialidad?._id === this.especialidadSeleccionada);
         this.turnos = []; // Limpia los turnos al cambiar de médico
@@ -212,7 +212,7 @@ export class DashboardPacienteComponent implements OnInit {
   }
 
   reservarTurnoDirecto() {
-    this.http.post<any>('http://localhost:5000/api/turnos/reservar', {
+    this.http.post<any>('https://proyecto-final-backend-hlv5.onrender.com/api/turnos/reservar', {
       turnoId: this.turnoParaPagar._id,
       pacienteId: this.ficha.userId,
       obraSocial: this.obraSocialSeleccionada
@@ -242,7 +242,7 @@ export class DashboardPacienteComponent implements OnInit {
     this.mensajes.push({ origen: 'paciente', texto: mensajeUsuario });
     this.pregunta = '';
 
-    this.http.post<any>('http://localhost:5000/api/ia', { pregunta: mensajeUsuario }).subscribe({
+    this.http.post<any>('https://proyecto-final-backend-hlv5.onrender.com/api/ia', { pregunta: mensajeUsuario }).subscribe({
       next: res => {
         this.mensajes.push({ origen: 'ia', texto: res.respuesta });
       },
