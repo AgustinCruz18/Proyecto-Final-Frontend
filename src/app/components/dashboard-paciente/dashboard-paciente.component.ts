@@ -58,8 +58,14 @@ export class DashboardPacienteComponent implements OnInit {
           this.ficha = ficha;
           this.mostrarAlerta = false;
           this.cargarEspecialidades();
+          // Mensaje de autorización de ficha
+          if (this.ficha.autorizada) {
+            this.mensaje = '✅Tu ficha fue aprobada. Ya podés reservar turnos con tu obra social.';
+          } else {
+            this.mensaje = '⚠️Tu ficha aún no fue aprobada por la secretaria. Solo podés reservar turnos como Particular.';
+          }
 
-          // ✅ SOLUCIÓN 1: Corrige el ngOnInit para seleccionar la primera obra social válida del array
+          // Corrige el ngOnInit para seleccionar la primera obra social válida del array
           if (this.ficha.obrasSociales?.length > 0) {
             this.obraSocialSeleccionada = this.ficha.obrasSociales[0];
           } else {

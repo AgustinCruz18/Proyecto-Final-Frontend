@@ -10,6 +10,13 @@
   <div [ngClass]="{'col-md-8': showChatPanel, 'col-md-12': !showChatPanel}">
     <div class="formulario-turno" *ngIf="ficha">
       <h2 class="text-center mb-4">Bienvenido, {{ ficha.nombreCompleto }}</h2>
+      <!-- Aviso de estado de ficha -->
+      <div *ngIf="mensaje" class="alert text-center" [ngClass]="{
+  'alert-success': ficha?.autorizada,
+  'alert-warning': !ficha?.autorizada
+}">
+        {{ mensaje }}
+      </div>
 
       <div class="form-group">
         <label>Especialidad:</label>
